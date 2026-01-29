@@ -8,23 +8,25 @@
 			<div class="flex flex-col gap-1.5">
 				<div :class="fieldLabelClasses">Position</div>
 				<div class="flex items-center gap-3">
-					<NumberInput
-						:modelValue="selectionBounds.left"
-						@update:modelValue="(val) => updatePosition('X', val)"
-						prefix="x"
-						:rangeStart="0"
-						:rangeStep="1"
-						:hideButtons="true"
-					/>
-					<NumberInput
-						:modelValue="selectionBounds.top"
-						@update:modelValue="(val) => updatePosition('Y', val)"
-						prefix="y"
-						:rangeStart="0"
-						:rangeStep="1"
-						:hideButtons="true"
-					/>
-				</div>
+    <div @click="copyToClipboard(selectionBounds.left, 'X')" class="cursor-pointer">
+        <NumberInput
+            :modelValue="selectionBounds.left"
+            @update:modelValue="(val) => updatePosition('X', val)"
+            prefix="x"
+            :hideButtons="true"
+            class="pointer-events-none" 
+        />
+    </div>
+    <div @click="copyToClipboard(selectionBounds.top, 'Y')" class="cursor-pointer">
+        <NumberInput
+            :modelValue="selectionBounds.top"
+            @update:modelValue="(val) => updatePosition('Y', val)"
+            prefix="y"
+            :hideButtons="true"
+            class="pointer-events-none"
+        />
+    </div>
+</div>
 			</div>
 
 			<div class="flex flex-col gap-1.5">
@@ -202,5 +204,14 @@ const bringForward = () => {
 
 const bringToFront = () => {
 	currentSlide.value.elements = getElementsWithUpdatedZIndices('front')
+}
+
+const copyToClipboard = (value, label) => {
+    if (!value && value !== 0) return;
+    
+    navigator.clipboard.writeText(Math.round(value).toString()).then(() => {
+        // This will show a success message in the browser console for now
+        console.log(`${label} coordinate ${value} copied!`);
+    });
 }
 </script>
