@@ -14,13 +14,15 @@ def create_drive_file(name: str, parent: str | None = None, title: str | None = 
 	"""
 	from drive.utils import create_file
 
-	drive_file = create_file(
+	file = create_file(
 		title=title,
 		parent=parent,
-		path=name,
 		mime_type="frappe/slides",
+		file_type="Presentation",
+		content_doctype="Presentation",
+		content_docname=name,
 	)
-	return drive_file.name
+	return file.name
 
 
 def get_file_size(file_path: str) -> int:
