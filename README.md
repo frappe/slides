@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> Slides has moved to [Frappe Suite](https://github.com/frappe/suite). This repository is now archived.
+
 <div align="center">
 
 <a href="https://frappe.io/products/">
